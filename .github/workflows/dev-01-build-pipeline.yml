@@ -10,4 +10,4 @@ jobs:
       with:
         java-version: 8
     - name: Build project with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=nabrajkhatri -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
