@@ -1,6 +1,9 @@
 name: Maven DEV-01 build Pipeline using github action
 on:
   push:
+    branches:
+      - 'main/**'  
+      - 'main'        
     # Sequence of patterns matched against refs/heads
     branches-ignore:    
       - 'nab/octocat'
