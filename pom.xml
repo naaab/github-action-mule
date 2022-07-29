@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>d9ac5069-08cf-4dba-88b0-f455836173be</groupId>
+	<groupId>601dfad5-7be8-47f4-a62f-6df888b86612</groupId>
 	<artifactId>pub-common-health-check</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
@@ -27,12 +27,6 @@
 			<artifactId>mule-secure-configuration-property-module</artifactId>
 			<version>1.2.3</version>
 			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>d9ac5069-08cf-4dba-88b0-f455836173be</groupId>
-			<artifactId>common-utilities-lib</artifactId>
-			<version>1.0.0</version>
-			<classifier>custom</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.mulesoft.connectors</groupId>
@@ -189,7 +183,7 @@
 		<repository>
 			<id>MuleExchangeRepository</id>
 			<name>MuleExchangeRepository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/d9ac5069-08cf-4dba-88b0-f455836173be/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/601dfad5-7be8-47f4-a62f-6df888b86612/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
