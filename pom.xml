@@ -178,6 +178,12 @@
 		<developerConnection>scm:git:https://${azure.git.user}:${azure.git.password}@dev.azure.com/HHEA/EIP/_git/${project.artifactId}</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
+        <scm>
+		<connection>scm:git:https://github.com/naaab/github-action-mule.git</connection>
+		<url>scm:git:https://github.com/naaab/github-action-mule.git</url>
+    	        <developerConnection>scm:git:https://github.com/naaab/github-action-mule.git</developerConnection>
+    	        <tag>HEAD</tag>
+        </scm>	
 
 	<distributionManagement>
 		<repository>
