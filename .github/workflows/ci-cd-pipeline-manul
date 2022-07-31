@@ -1,0 +1,175 @@
+name: Maven DEV-01 build Pipeline using github action
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'      
+env:
+  ## Cloudhub Properties
+  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
+  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
+  CLOUDHUB_ENVIRONMENT: dev-01
+  CLOUDHUB_WORKERS: 2
+  CLOUDHUB_WORKER_TYPE: MICRO
+
+  ## API specific 
+  HTTP_PRIVATE_PORT: 8091  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- in ${{ github.event.inputs.home }}!"
+        
+    - uses: actions/checkout@v2
+    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        cache: 'maven'
+        java-version: 8
+        server-id: github
+    - name: View settings.xml
+      run: |
+        cat /home/runner/.m2/settings.xml
+
+    - name: Build and Test
+      if: github.event.ref == 'refs/heads/develop'
+      run: mvn clean package      
+
+    - name: Build and Test
+      if: github.event.ref != 'refs/heads/develop'
+      run: mvn clean package -DskipTests      
+
+    - name: Publish MUnit Coverage Reports
+      if: github.event.ref == 'refs/heads/develop'
+      uses: actions/upload-artifact@v2
+      with:
+        name: munit-coverage-reports
+        path: target/site/munit/coverage/*
+
+    - name: Publish MUnit Test Reports
+      if: github.event.ref == 'refs/heads/develop'
+      uses: actions/upload-artifact@v2
+      with:
+        name: munit-test-reports
+        path: target/surefire-reports/*
+    
+    
+  dev_deploy:
+    if: github.event.ref == 'refs/heads/develop'
+    needs: [build]    
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v2    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        cache: 'maven'
+        java-version: 8
+        server-id: github
+    - name: View settings.xml
+      run: cat /home/runner/.m2/settings.xml    
+    - name: Configure Git user
+      run: |
+        git config user.email "nabraj@gmail.com"
+        git config user.name "GitHub Actions"
+    - name: Deploy
+      run: echo fake-deploy
+      #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
+
+  qa_deploy:
+    if: github.event.ref == 'refs/heads/release'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: staging    
+    steps:
+    - uses: actions/checkout@v2    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        cache: 'maven'
+        java-version: 8
+        server-id: github
+    - name: View settings.xml
+      run: cat /home/runner/.m2/settings.xml    
+    - name: Configure Git user
+      run: |
+        git config user.email "nabraj@gmail.com"
+        git config user.name "GitHub Actions"
+    - name: prepare release and perform
+      run: mvn -B release:prepare release:perform
+      env:
+        GITHUB_TOKEN: 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
+    - name: Deploy
+      run: echo fake-deploy
+      #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
+
+  staging_deploy:
+    if: github.event.ref == 'refs/heads/main'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: staging    
+    steps:   
+    - uses: actions/checkout@v2    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        cache: 'maven'
+        java-version: 8
+        server-id: github
+    - name: View settings.xml
+      run: cat /home/runner/.m2/settings.xml    
+    - name: Configure Git user
+      run: |
+        git config user.email "nabraj@gmail.com"
+        git config user.name "GitHub Actions"
+    - name: prepare release and perform
+      run: mvn -B release:prepare release:perform
+      env:
+        GITHUB_TOKEN: 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
+    - name: Deploy
+      run: echo fake-deploy
+      #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
+
+  prod_deploy:
+    needs: [staging_deploy]
+    runs-on: ubuntu-latest
+    environment: 
+      name: production    
+    steps:    
+    - uses: actions/checkout@v2    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        cache: 'maven'
+        java-version: 8
+        server-id: github
+    - name: View settings.xml
+      run: cat /home/runner/.m2/settings.xml    
+    - name: Configure Git user
+      run: |
+        git config user.email "nabraj@gmail.com"
+        git config user.name "GitHub Actions"
+    - name: prepare release and perform
+      run: mvn -B release:prepare release:perform
+      env:
+        GITHUB_TOKEN: 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
+    - name: Deploy
+      run: echo fake-deploy
+      #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
