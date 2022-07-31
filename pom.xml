@@ -182,11 +182,9 @@
 
 	<distributionManagement>
 		<repository>
-			<id>MuleExchangeRepository</id>
-			<name>MuleExchangeRepository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/601dfad5-7be8-47f4-a62f-6df888b86612/maven</url>
-			<layout>default</layout>
+			<id>github</id>
+			<name>github</name>
+			<url>https://maven.pkg.github.com/naaab/github-action-mule</url>  
 		</repository>
 	</distributionManagement>
-
 </project>
