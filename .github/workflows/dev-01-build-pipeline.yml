@@ -35,6 +35,9 @@ env:
 
 jobs:
   build:
+    uses: naaab/github-action-mule/develop/.github/workflows/sub_build.yml@main
+
+  build2:
     runs-on: ubuntu-latest
     steps:
     - run: |
