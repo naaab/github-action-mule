@@ -18,7 +18,7 @@
 		<tags />
 		<categories>[]</categories>
 		<maven.release.plugin.version>3.0.4</maven.release.plugin.version>
-		<project.scm.id>${project.artifactId}</project.scm.id>
+		<project.scm.id>github</project.scm.id>
 	</properties>
 
 	<dependencies>
