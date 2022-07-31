@@ -4,7 +4,7 @@
 
 	<groupId>601dfad5-7be8-47f4-a62f-6df888b86612</groupId>
 	<artifactId>pub-common-health-check</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>mule-application</packaging>
 
 	<name>${project.artifactId}</name>
@@ -15,7 +15,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mule.version>4.4.0</mule.version>
 		<mule.maven.plugin.version>3.5.4</mule.maven.plugin.version>
-		<tags/>
+		<tags />
 		<categories>[]</categories>
 		<maven.release.plugin.version>3.0.4</maven.release.plugin.version>
 		<project.scm.id>${project.artifactId}</project.scm.id>
@@ -177,7 +177,7 @@
 		<connection>scm:git:https://github.com/naaab/github-action-mule.git</connection>
 		<url>scm:git:https://github.com/naaab/github-action-mule.git</url>
     	        <developerConnection>scm:git:https://github.com/naaab/github-action-mule.git</developerConnection>
-    	        <tag>HEAD</tag>
+    	        <tag>pub-common-health-check-1.0.2</tag>
         </scm>	
 
 	<distributionManagement>
