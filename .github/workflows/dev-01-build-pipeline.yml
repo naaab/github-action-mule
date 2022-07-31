@@ -33,8 +33,8 @@ jobs:
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
-    - name: Publish JAR
-      run: mvn -B -X release:prepare release:perform
+    - name: prepare release and perform
+      run: mvn -B release:prepare release:perform
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Deploy
