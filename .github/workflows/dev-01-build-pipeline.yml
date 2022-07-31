@@ -13,7 +13,15 @@ on:
       - v2
       - v1.*
 env:
-  anypoint_userName: nabrajkhatri
+  ## Cloudhub Properties
+  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
+  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
+  CLOUDHUB_ENVIRONMENT: dev-01
+  CLOUDHUB_WORKERS: 2
+  CLOUDHUB_WORKER_TYPE: MICRO
+
+  ## API specific 
+  HTTP_PRIVATE_PORT: 8091  
 
 jobs:
   build_and_test_and_deploy:
@@ -31,7 +39,7 @@ jobs:
       run: cat /home/runner/.m2/settings.xml
     - name: Configure Git user
       run: |
-        git config user.email "actions@github.com"
+        git config user.email "nabraj@gmail.com"
         git config user.name "GitHub Actions"
     - name: prepare release and perform
       run: mvn -B release:prepare release:perform
