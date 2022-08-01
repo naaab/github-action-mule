@@ -31,7 +31,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: 
-      name: ${{ inputs.envName }}    
+      name: ${{ inputs.GITHUB_ENVIRONMENT }}    
     steps:
     - run: |
         echo "Subflow is being called.."
