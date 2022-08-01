@@ -28,10 +28,10 @@ jobs:
     with:
       CLOUDHUB_ENVIRONMENT: "dev-01"
       GITHUB_ENVIRONMENT: "dev"      
-      CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
-      CLOUDHUB_WORKER_TYPE: ${{ env.CLOUDHUB_WORKER_TYPE }}      
-      CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
-      HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
+      CLOUDHUB_WORKERS: "1"
+      CLOUDHUB_WORKER_TYPE: "MICRO"
+      CLOUDHUB_REGION: "ca-central-1"
+      HTTP_PRIVATE_PORT: "8091"
     secrets:
       CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}        
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
@@ -42,10 +42,10 @@ jobs:
     with:
       CLOUDHUB_ENVIRONMENT: "qa-01"
       GITHUB_ENVIRONMENT: "dev"      
-      CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
-      CLOUDHUB_WORKER_TYPE: ${{ env.CLOUDHUB_WORKER_TYPE }}      
-      CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
-      HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
+      CLOUDHUB_WORKERS: "1"
+      CLOUDHUB_WORKER_TYPE: "MICRO"
+      CLOUDHUB_REGION: "ca-central-1"
+      HTTP_PRIVATE_PORT: "8091"
     secrets:
       CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}    
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
