@@ -1,4 +1,4 @@
-name: Publish
+name: release staging and production
 # Run on new release creation or when manually triggered
 on:
   workflow_dispatch:
@@ -7,23 +7,43 @@ on:
         description: 'Where to release (staging or prod)?'     
         required: true
         default: 'staging'
+env:
+  ## Cloudhub Properties
+  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
+  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
+  CLOUDHUB_WORKERS: 2
+  CLOUDHUB_WORKER_TYPE: MICRO
+  CLOUDHUB_REGION: us-east-01  
+
+  ## API specific 
+  HTTP_PRIVATE_PORT: 8091  
+
 jobs:
   staging:
-    name: Deploy to Staging
-    environment: 
-      name: Staging
-    runs-on: ubuntu-latest
-    steps:
-    - name: Deploy to Staging
-      run: echo fake-deploy-staging
+    uses: ./.github/workflows/build_deploy_reusable.yml
+    with:
+      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
+      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
+      CLOUDHUB_ENVIRONMENT: "uat-01"
+      GITHUB_ENVIRONMENT: "staging"      
+      CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
+      CLOUDHUB_WORKER_TYPE: ${{ env.CLOUDHUB_WORKER_TYPE }}      
+      CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
+      HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
+    secrets:
+      CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
+
   prod:
     if: github.event.inputs.releaseType == 'prod'  
-    name: Deploy to Prod
-    environment: 
-      name: Prod
-      url: https://dotnetmona.azurewebsites.net/
-    needs: [staging]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Deploy to PROD
-      run: echo fake-deploy-prod
+    uses: ./.github/workflows/build_deploy_reusable.yml
+    with:
+      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
+      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
+      CLOUDHUB_ENVIRONMENT: "prod-01"
+      GITHUB_ENVIRONMENT: "prod"      
+      CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
+      CLOUDHUB_WORKER_TYPE: ${{ env.CLOUDHUB_WORKER_TYPE }}      
+      CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
+      HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
+    secrets:
+      CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
