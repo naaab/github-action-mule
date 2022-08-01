@@ -7,10 +7,7 @@ on:
         type: string
       GITHUB_ENVIRONMENT:
         required: true
-        type: string        
-      GITHUB_BRANCH:
-        required: true
-        type: string                
+        type: string                    
       CLOUDHUB_WORKERS:
         required: true
         type: string
@@ -44,7 +41,7 @@ jobs:
 
     - uses: actions/checkout@v3
       with:
-        ref: ${{ inputs.GITHUB_BRANCH}}        
+        ref: ${{ github.event.ref}}        
         
     - name: Set up JDK 8
       uses: actions/setup-java@v3
@@ -58,43 +55,47 @@ jobs:
       run: |
         cat /home/runner/.m2/settings.xml
         
-    - name: Clean Test
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'
+    - name: Clean Test for development branch
+      if: ${{ github.event.ref == 'refs/heads/develop' }}
       run: mvn clean test               
 
-    - name: Build and Test
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'
+    - name: Build and Test for development branch
+      if: ${{ github.event.ref == 'refs/heads/develop' }}
       run: mvn clean package      
 
-    - name: Build and Test
-      if: ${{ inputs.GITHUB_BRANCH}} != 'develop'
+    - name: Build and Test for release and production
+      if: ${{ github.event.ref != 'refs/heads/develop' }}
       run: mvn clean package -DskipTests      
 
     - name: Publish MUnit Coverage Reports
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'
+      if: ${{ github.event.ref == 'refs/heads/develop' }}
       uses: actions/upload-artifact@v2
       with:
         name: munit-coverage-reports
         path: target/site/munit/coverage/*
 
     - name: Publish MUnit Test Reports
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'
+      if: ${{ github.event.ref == 'refs/heads/develop' }}
       uses: actions/upload-artifact@v2
       with:
         name: munit-test-reports
         path: target/surefire-reports/*
+
+    # Add email these reports, zip - TBD
         
     - name: Configure Git user
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'    
+      if: ${{ github.event.ref != 'refs/heads/develop' }}
       run: |
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
+        
     - name: prepare release and perform
       continue-on-error: true
-      if: ${{ inputs.GITHUB_BRANCH}} == 'develop'
+      if: ${{ github.event.ref != 'refs/heads/develop' }}
       run: mvn -B release:prepare release:perform
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-    - name: Deploy
+        
+    - name: Deploy for ${{ github.event.ref }} branch
       run: echo fake-deploy
       #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
