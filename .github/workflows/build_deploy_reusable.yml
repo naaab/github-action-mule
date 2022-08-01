@@ -7,10 +7,7 @@ on:
         type: string
       GITHUB_ENVIRONMENT:
         required: true
-        type: string        
-      GITHUB_BRANCH:
-        required: true
-        type: string                
+        type: string                    
       CLOUDHUB_WORKERS:
         required: true
         type: string
