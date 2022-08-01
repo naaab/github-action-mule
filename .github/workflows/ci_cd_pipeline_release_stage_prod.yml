@@ -21,7 +21,6 @@ jobs:
   staging:
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
-      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
       CLOUDHUB_ENVIRONMENT: "uat-01"
       GITHUB_ENVIRONMENT: "staging"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
@@ -29,14 +28,13 @@ jobs:
       CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
       HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
     secrets:
+      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}       
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
 
   prod:
     if: github.event.inputs.releaseType == 'prod'  
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
-      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
-      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
       CLOUDHUB_ENVIRONMENT: "prod-01"
       GITHUB_ENVIRONMENT: "prod"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
@@ -44,4 +42,5 @@ jobs:
       CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
       HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
     secrets:
+      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}        
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
