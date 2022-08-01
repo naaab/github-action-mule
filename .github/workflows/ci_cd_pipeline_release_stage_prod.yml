@@ -1,4 +1,5 @@
-name: release staging and production
+name: ci_cd_pipeline_release_stage_prod.yml
+
 # Run on new release creation or when manually triggered
 on:
   workflow_dispatch:
