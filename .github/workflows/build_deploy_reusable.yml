@@ -38,9 +38,22 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: echo "$GITHUB_CONTEXT"        
-    - uses: actions/checkout@v2
+      
+    - name: CHECKOUT-ATTEMPT-1
+    - uses: actions/checkout@v3
       with:
-        ref: develop    
+        ref: 'refs/heads/develop'
+
+    - name: CHECKOUT-ATTEMPT-2
+    - uses: actions/checkout@v3
+      with:
+        ref: 'develop'
+
+    - name: CHECKOUT-ATTEMPT-3
+    - uses: actions/checkout@v3
+      with:
+        ref: develop        
+        
     - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
@@ -48,7 +61,8 @@ jobs:
         cache: 'maven'
         java-version: 8
         server-id: github
-    - name: JOB DETAILS
+        
+    - name: JOB settings DETAILS
       run: |
         cat /home/runner/.m2/settings.xml
         
