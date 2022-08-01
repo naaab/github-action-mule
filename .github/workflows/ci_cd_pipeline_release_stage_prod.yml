@@ -33,6 +33,7 @@ jobs:
 
   prod:
     if: github.event.inputs.releaseType == 'prod'  
+    needs: [staging]
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
       CLOUDHUB_ENVIRONMENT: "prod-01"
