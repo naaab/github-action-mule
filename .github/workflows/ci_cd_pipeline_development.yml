@@ -2,15 +2,6 @@ name: ci_cd_pipeline_development.yml
 on:
   schedule:
     - cron: '30 13 * * 1,2,3,4,5'
-  push:
-    # Sequence of patterns matched against refs/heads
-    branches-ignore:    
-      - 'nab/octocat'
-      - 'releases/**-alpha'
-    # Sequence of patterns matched against refs/tags
-    tags-ignore:        
-      - v2
-      - v1.*
   workflow_dispatch:
 
 env:
