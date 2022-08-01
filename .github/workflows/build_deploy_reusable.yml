@@ -72,10 +72,11 @@ jobs:
         git config user.email "nabraj@gmail.com"
         git config user.name "GitHub Actions"
     - name: prepare release and perform
+      continue-on-error: true
       if: github.event.ref != 'refs/heads/develop'    
       run: mvn -B release:prepare release:perform
       env:
-        GITHUB_TOKEN: ghp_FucG0nCf3ssh4gMtC5yNUGHc2xCQod4L8Nt6
+        GITHUB_TOKEN: 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
     - name: Deploy
       run: echo fake-deploy
       #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
