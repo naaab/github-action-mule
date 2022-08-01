@@ -38,6 +38,7 @@ jobs:
 
 
   build_deploy_qa-01:
+    needs: [build_deploy_dev-01]
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
       CLOUDHUB_ENVIRONMENT: "qa-01"
