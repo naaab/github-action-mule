@@ -34,6 +34,10 @@ jobs:
     steps:
     - run: |
         echo "Subflow is being called.."
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"        
     - uses: actions/checkout@v2
       with:
         ref: develop    
@@ -47,7 +51,6 @@ jobs:
     - name: JOB DETAILS
       run: |
         cat /home/runner/.m2/settings.xml
-        echo {{ github.event.ref }}
         
     - name: Clean Test
       if: github.event.ref == 'refs/heads/develop'
