@@ -5,9 +5,6 @@ on:
       CLOUDHUB_USERNAME:
         required: true
         type: string
-      CLOUDHUB_PASSWORD:
-        required: true
-        type: string        
       CLOUDHUB_ENVIRONMENT:
         required: true
         type: string
