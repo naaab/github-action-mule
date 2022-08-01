@@ -17,7 +17,7 @@ env:
 
 jobs:
   build_deploy_dev-01:
-    uses: ./.github/workflows/build_deploy_reusable.yml@develop
+    uses: ./.github/workflows/build_deploy_reusable.yml
     with:
       CLOUDHUB_ENVIRONMENT: "dev-01"
       GITHUB_ENVIRONMENT: "dev"      
