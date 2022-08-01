@@ -39,17 +39,14 @@ jobs:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: echo "$GITHUB_CONTEXT"        
       
-    - name: CHECKOUT-ATTEMPT-1
     - uses: actions/checkout@v3
       with:
         ref: 'refs/heads/develop'
 
-    - name: CHECKOUT-ATTEMPT-2
     - uses: actions/checkout@v3
       with:
         ref: 'develop'
 
-    - name: CHECKOUT-ATTEMPT-3
     - uses: actions/checkout@v3
       with:
         ref: develop        
