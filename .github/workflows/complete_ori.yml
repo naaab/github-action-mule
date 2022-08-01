@@ -1,27 +1,6 @@
 name: Maven DEV-01 build Pipeline using github action
 on:
-  schedule:
-    - cron: '30 5 * * 1,3'
-    - cron: '30 5 * * 2,4'
-  push:
-    # Sequence of patterns matched against refs/heads
-    branches-ignore:    
-      - 'nab/octocat'
-      - 'releases/**-alpha'
-    # Sequence of patterns matched against refs/tags
-    tags-ignore:        
-      - v2
-      - v1.*
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'Person to greet'
-        required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'      
 env:
   ## Cloudhub Properties
   CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
