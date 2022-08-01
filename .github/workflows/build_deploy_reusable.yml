@@ -1,8 +1,6 @@
-name: build, test, package and deploy
-
+name: build_deploy_reusable.yml
 on:
   workflow_call:
-
 jobs:
   build:
     runs-on: ubuntu-latest
