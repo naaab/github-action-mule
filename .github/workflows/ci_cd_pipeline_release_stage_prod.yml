@@ -10,8 +10,6 @@ on:
         default: 'staging'
 env:
   ## Cloudhub Properties
-  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
-  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
   CLOUDHUB_WORKERS: 2
   CLOUDHUB_WORKER_TYPE: MICRO
   CLOUDHUB_REGION: us-east-01  
@@ -23,8 +21,7 @@ jobs:
   staging:
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
-      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
-      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
+      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
       CLOUDHUB_ENVIRONMENT: "uat-01"
       GITHUB_ENVIRONMENT: "staging"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
