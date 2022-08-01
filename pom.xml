@@ -4,7 +4,7 @@
 
 	<groupId>601dfad5-7be8-47f4-a62f-6df888b86612</groupId>
 	<artifactId>pub-common-health-check</artifactId>
-	<version>1.0.9</version>
+	<version>1.0.12-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
 	<name>${project.artifactId}</name>
