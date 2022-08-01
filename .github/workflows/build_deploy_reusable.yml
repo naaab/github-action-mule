@@ -2,9 +2,6 @@ name: build_deploy_reusable.yml
 on:
   workflow_call:
     inputs:
-      CLOUDHUB_USERNAME:
-        required: true
-        type: string
       CLOUDHUB_ENVIRONMENT:
         required: true
         type: string
@@ -24,6 +21,8 @@ on:
         required: true
         type: string                        
     secrets:
+      CLOUDHUB_USERNAME:
+        required: true    
       CLOUDHUB_PASSWORD:
         required: true
 
