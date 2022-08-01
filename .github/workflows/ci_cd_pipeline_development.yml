@@ -1,4 +1,4 @@
-name: Maven DEV-01 build Pipeline using github action
+name: ci_cd_pipeline_development.yml
 on:
   schedule:
     - cron: '30 13 * * 1,2,3,4,5'
