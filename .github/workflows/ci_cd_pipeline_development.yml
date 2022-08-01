@@ -2,6 +2,8 @@ name: ci_cd_pipeline_development.yml
 on:
   schedule:
     - cron: '30 13 * * 1,2,3,4,5'
+  push:
+    branches: [ develop ]
   workflow_dispatch:
 
 env:
