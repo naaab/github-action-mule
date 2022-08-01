@@ -15,8 +15,6 @@ on:
 
 env:
   ## Cloudhub Properties
-  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
-  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
   CLOUDHUB_WORKERS: 2
   CLOUDHUB_WORKER_TYPE: MICRO
   CLOUDHUB_REGION: us-east-01  
@@ -28,7 +26,6 @@ jobs:
   build_deploy_dev-01:
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
-      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
       CLOUDHUB_ENVIRONMENT: "dev-01"
       GITHUB_ENVIRONMENT: "dev"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
@@ -36,19 +33,19 @@ jobs:
       CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
       HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
     secrets:
+      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}        
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
 
 
-  build_deploy_dev-02:
+  build_deploy_qa-01:
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
-      CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
-      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
-      CLOUDHUB_ENVIRONMENT: "dev-02"
+      CLOUDHUB_ENVIRONMENT: "qa-01"
       GITHUB_ENVIRONMENT: "dev"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
       CLOUDHUB_WORKER_TYPE: ${{ env.CLOUDHUB_WORKER_TYPE }}      
       CLOUDHUB_REGION: ${{ env.CLOUDHUB_REGION }}     
       HTTP_PRIVATE_PORT: ${{ env.HTTP_PRIVATE_PORT }}   
     secrets:
+      CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}    
       CLOUDHUB_PASSWORD : ${{ secrets.CLOUDHUB_PASSWORD }}
