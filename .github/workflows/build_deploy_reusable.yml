@@ -69,7 +69,7 @@ jobs:
     - name: Configure Git user
       if: github.event.ref != 'refs/heads/develop'    
       run: |
-        git config user.email "nabraj@gmail.com"
+        git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
     - name: prepare release and perform
       continue-on-error: true
