@@ -4,7 +4,7 @@
 
 	<groupId>601dfad5-7be8-47f4-a62f-6df888b86612</groupId>
 	<artifactId>pub-common-health-check</artifactId>
-	<version>1.0.52</version>
+	<version>1.0.53-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
 
 	<name>${project.artifactId}</name>
@@ -177,7 +177,7 @@
 		<connection>scm:git:https://github.com/naaab/github-action-mule.git</connection>
 		<url>scm:git:https://github.com/naaab/github-action-mule.git</url>
     	        <developerConnection>scm:git:https://github.com/naaab/github-action-mule.git</developerConnection>
-    	        <tag>pub-common-health-check-1.0.52</tag>
+    	        <tag>pub-common-health-check-1.0.12</tag>
         </scm>	
 
 	<distributionManagement>
