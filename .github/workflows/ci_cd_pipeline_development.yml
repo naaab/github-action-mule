@@ -29,7 +29,6 @@ jobs:
     uses: ./.github/workflows/build_deploy_reusable.yml
     with:
       CLOUDHUB_USERNAME: ${{ env.CLOUDHUB_USERNAME }}
-      CLOUDHUB_PASSWORD: ${{ env.CLOUDHUB_PASSWORD }}
       CLOUDHUB_ENVIRONMENT: "dev-01"
       GITHUB_ENVIRONMENT: "dev"      
       CLOUDHUB_WORKERS: ${{ env.CLOUDHUB_WORKERS }}
