@@ -37,15 +37,7 @@ jobs:
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"        
-      
-    - uses: actions/checkout@v3
-      with:
-        ref: 'refs/heads/develop'
-
-    - uses: actions/checkout@v3
-      with:
-        ref: 'develop'
+      run: echo "$GITHUB_CONTEXT"
 
     - uses: actions/checkout@v3
       with:
@@ -98,7 +90,7 @@ jobs:
       if: github.event.ref != 'refs/heads/develop'    
       run: mvn -B release:prepare release:perform
       env:
-        GITHUB_TOKEN: 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
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
     - name: Deploy
       run: echo fake-deploy
       #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
