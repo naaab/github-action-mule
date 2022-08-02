@@ -40,7 +40,9 @@ jobs:
     - run: |
         echo ENV: ${{ inputs.GITHUB_ENVIRONMENT }}
         echo PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
-        echo CH: ${{ secrets.CLOUDHUB_PASSWORD }}
+        echo CH1: ${{ secrets.CLOUDHUB_USERNAME }}        
+        echo CH2: ${{ inputs.CLOUDHUB_PASSWORD }}
+        echo CH3: $CLOUDHUB_PASSWORD
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
