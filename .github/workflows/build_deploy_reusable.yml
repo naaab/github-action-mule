@@ -52,29 +52,7 @@ jobs:
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: |
-          [
-            {
-              "id": "github", 
-              "username": ${{ secrets.REPO_SECRET_GIT_USERNAME }}, 
-              "password": ${{ secrets.REPO_SECRET_GIT_PASSWORD }}
-            },
-            {
-              "id": "mulesoft-releases", 
-              "username": ${{ secrets.REPO_SECRET_MULE_RELEASES_USERNAME }},
-              "password": ${{ secrets.REPO_SECRET_MULE_RELEASES_PASSWORD }}
-            },
-            {
-              "id": "mule-connected-app", 
-              "username": ${{ secrets.REPO_SECRET_MULE_CONNECTED_APP_ID }},
-              "password": ${{ secrets.REPO_SECRET_MULE_CONNECTED_APP_SECRET }}
-            },      
-            {
-              "id": "anypoint-exchange-v3", 
-              "username": ${{ secrets.REPO_SECRET_ANYPOINT_EXCHANGE_ID }},
-              "password": ${{ secrets.REPO_SECRET_ANYPOINT_EXCHANGE_PASS }}
-            }
-          ]
+        servers: '[{"id": "github", "username": "username", "password": "password"}]'
 
     - name: JOB settings DETAILS
       run: |
