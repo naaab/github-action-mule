@@ -50,7 +50,7 @@ jobs:
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: '[{"id": "mule-connected-app", "username": "${{ secrets.CLOUDHUB_USERNAME}}", "password": "${{ env.CLOUDHUB_USERNAME }}"}]'
+        servers: '[{"id": "mule-connected-app", "username": "${{ secrets.CLOUDHUB_USERNAME}}", "password": "${{ secrets.CLOUDHUB_PASSWORD }}"}]'
 
     - name: JOB settings DETAILS
       run: |
