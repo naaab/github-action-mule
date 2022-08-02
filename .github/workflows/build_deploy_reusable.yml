@@ -26,6 +26,10 @@ on:
       CLOUDHUB_PASSWORD:
         required: true
 
+env:
+  HTTP_PRIVATE_PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
+  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,10 +37,10 @@ jobs:
       name: ${{ inputs.GITHUB_ENVIRONMENT }}    
     steps:
     - run: |
-        echo ENV: ${{ inputs.GITHUB_ENVIRONMENT }}
-        echo PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
-        echo CH1: ${{ secrets.CLOUDHUB_USERNAME }}        
-        echo CH2: ${{ inputs.CLOUDHUB_USERNAME }}
+        echo PORT: ${{ env.HTTP_PRIVATE_PORT }}
+        echo CH1: ${{ env.CLOUDHUB_USERNAME }}        
+        echo CH2: "${env.USER}"
+        echo CH2: ${env.USER}
 
     - name: Dump GitHub context
       env:
