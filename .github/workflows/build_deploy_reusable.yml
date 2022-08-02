@@ -26,6 +26,11 @@ on:
       CLOUDHUB_PASSWORD:
         required: true
 
+env:
+  HTTP_PRIVATE_PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
+  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
+  CLOUDHUB_PASSWORD: ${{ secrets.CLOUDHUB_PASSWORD }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +38,9 @@ jobs:
       name: ${{ inputs.GITHUB_ENVIRONMENT }}    
     steps:
     - run: |
-        echo "Subflow is being called.."
+        echo ENV: ${{ inputs.GITHUB_ENVIRONMENT }}
+        echo PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
+        echo CH: ${{ secrets.CLOUDHUB_PASSWORD }}
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
