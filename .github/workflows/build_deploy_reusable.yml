@@ -49,10 +49,11 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
         java-version: 8
+        server-id: github
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: '[{"id": "github", "username": "username", "password": "password"}]'
+        servers: '[{"id": "mule-connected-app", "username": "username", "password": "password"},{"id": "anypoint-exchange-v3", "username": "username", "password": "password"},{"id": "mulesoft-releases", "username": "username", "password": "password"}]'
 
     - name: JOB settings DETAILS
       run: |
