@@ -25,21 +25,12 @@ on:
         required: true    
       CLOUDHUB_PASSWORD:
         required: true
-
-env:
-  HTTP_PRIVATE_PORT: ${{ inputs.HTTP_PRIVATE_PORT }}
-  CLOUDHUB_USERNAME: ${{ secrets.CLOUDHUB_USERNAME }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: 
       name: ${{ inputs.GITHUB_ENVIRONMENT }}    
     steps:
-    - run: |
-        echo PORT: ${{ env.HTTP_PRIVATE_PORT }}
-        echo CH1: ${{ env.CLOUDHUB_USERNAME }}
-
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
@@ -59,7 +50,7 @@ jobs:
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: '[{"id": "mule-connected-app", "username": "${{ secrets.CLOUDHUB_USERNAME}}", "password": "${{ env.CLOUDHUB_USERNAME }}"},{"id": "anypoint-exchange-v3", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}},{"id": "mulesoft-releases", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}}]'
+        servers: '[{"id": "mule-connected-app", "username": "${{ secrets.CLOUDHUB_USERNAME}}", "password": "${{ env.CLOUDHUB_USERNAME }}"}]'
 
     - name: JOB settings DETAILS
       run: |
@@ -107,5 +98,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         
     - name: Deploy for ${{ github.event.ref }} branch
-      run: echo fake-deploy
-      #run: mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy -Danypoint.userName=$anypoint_userName -Danypoint.password=MuleSoftYey1! -Dcloudhub.environment=dev -Dcloudhub.workerType=MICRO -Dcloudhub.workers=1 -Dcloudhub.region=ca-central-1 -Dmule.encryption.key=hh1234 -Dhttp.private.port=8091
+      run: |
+        mvn -U -V -e -B -DskipTests deploy --file pom.xml -DmuleDeploy \
+        -Danypoint.userName=${{ secrets.CLOUDHUB_USERNAME}} \
+        -Danypoint.password=${{ secrets.CLOUDHUB_PASSWORD}} \
+        -Dcloudhub.environment=${{ inputs.CLOUDHUB_ENVIRONMENT}} \
+        -Dcloudhub.workerType=${{ inputs.CLOUDHUB_WORKER_TYPE}} \
+        -Dcloudhub.workers=${{ inputs.CLOUDHUB_WORKERS}} \
+        -Dcloudhub.region=${{ inputs.CLOUDHUB_REGION}} \
+        -Dhttp.private.port=${{ inputs.HTTP_PRIVATE_PORT}} \
