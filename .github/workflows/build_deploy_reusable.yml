@@ -39,8 +39,8 @@ jobs:
     - run: |
         echo PORT: ${{ env.HTTP_PRIVATE_PORT }}
         echo CH1: ${{ env.CLOUDHUB_USERNAME }}        
-        echo CH2: "${env.USER}"
-        echo CH2: ${env.USER}
+        echo CH2: "${env.CLOUD_USERNAME}"
+        echo CH3: ${env.CLOUD_USERNAME}
 
     - name: Dump GitHub context
       env:
@@ -61,7 +61,7 @@ jobs:
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: '[{"id": "mule-connected-app", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}},{"id": "anypoint-exchange-v3", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}},{"id": "mulesoft-releases", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}}]'
+        servers: '[{"id": "mule-connected-app", "username": "${{ secrets.CLOUDHUB_USERNAME}}", "password": ${{ secrets.CLOUDHUB_PASSWORD}}},{"id": "anypoint-exchange-v3", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}},{"id": "mulesoft-releases", "username": ${{ secrets.CLOUDHUB_USERNAME}}, "password": ${{ secrets.CLOUDHUB_PASSWORD}}}]'
 
     - name: JOB settings DETAILS
       run: |
