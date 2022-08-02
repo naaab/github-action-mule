@@ -53,7 +53,7 @@ jobs:
 
     - uses: s4u/maven-settings-action@v2.6.0
       with:
-        servers: '[{"id": "mule-connected-app", "username": "username", "password": "password"},{"id": "anypoint-exchange-v3", "username": "username", "password": "password"},{"id": "mulesoft-releases", "username": "username", "password": "password"}]'
+        servers: '[{"id": "mule-connected-app", "username": ${{ secrets.REPO_SECRET_MULE_CONNECTED_APP_ID}}, "password": "password"},{"id": "anypoint-exchange-v3", "username": "username", "password": "password"},{"id": "mulesoft-releases", "username": "username", "password": "password"}]'
 
     - name: JOB settings DETAILS
       run: |
