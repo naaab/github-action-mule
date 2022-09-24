@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo "Starting Create Release Branch..."
                 sh "git checkout -b '${env.BUILD_VERSION}'"
-                sh "mvn versions:set -DnewVersion='${env.BUILD_VERSION}'"
+                sh "/var/jenkins_home/apache-maven-3.8.6/bin/mvn versions:set -DnewVersion='${env.BUILD_VERSION}'"
                 echo "Create Release Branch: ${currentBuild.currentResult}"
             }
             post {
@@ -25,7 +25,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 echo "Starting Build and Test..."
-                sh "mvn -Dmaven.test.failure.ignore clean verify"
+                sh "/var/jenkins_home/apache-maven-3.8.6/bin/mvn -Dmaven.test.failure.ignore clean verify"
                 echo "Build and Test: ${currentBuild.currentResult}"
             }
             post {
@@ -70,7 +70,7 @@ pipeline {
                 script {
                     echo "Starting Deploy Artifact..."
                     configFileProvider([configFile(fileId: '107138b1-fdbe-45c5-8eb3-64a520257c07', targetLocation: 'settings.xml', variable: 'MAVEN_SETTINGS_XML')]) {
-                        sh 'mvn -U --batch-mode -s $MAVEN_SETTINGS_XML clean package install deploy'
+                        sh '/var/jenkins_home/apache-maven-3.8.6/bin/mvn -U --batch-mode -s $MAVEN_SETTINGS_XML clean package install deploy'
                     }
                     echo "Artifact Deployed: ${currentBuild.currentResult}"
                 }
