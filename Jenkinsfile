@@ -49,7 +49,10 @@ pipeline {
                     sh "git config --global user.email nabraj@gmail.com"
                     sh "git config --global user.name jenkins"
                     sh "git add pom.xml"
+                    sh "git remote rm origin"
+                    sh "git remote add origin git@github.com:naaab/github-action-mule.git"                    
                     sh 'git commit -m "Committing Branch"'
+                    
                     sh "git push --set-upstream origin '${env.BUILD_VERSION}'"
                     echo "Build Successful...branch ${env.BUILD_VERSION} committed"
                 } 
