@@ -46,6 +46,8 @@ pipeline {
                 script {
                     echo "Starting Push Release Branch..."
                     // Success
+                    sh "git config --global user.email nabraj@gmail.com"
+                    sh "git config --global user.name nabraj"
                     sh "git add pom.xml"
                     sh 'git commit -m "Committing Branch"'
                     sh "git push --set-upstream origin '${env.BUILD_VERSION}'"
